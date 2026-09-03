@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="1000" height="560" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#111111"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1000" height="560" fill="#ffffff"/>
+
+  <text x="16" y="26" font-size="19" font-weight="bold" fill="#111111">2012: три потока сошлись в одной точке</text>
+  <text x="16" y="46" font-size="12" fill="#555555">Ни один из трёх факторов сам по себе не был новым. Новым было то, что они впервые совпали по времени.</text>
+
+  <!-- stream 1 -->
+  <rect x="16" y="76" width="300" height="112" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="30" y="102" font-size="16" font-weight="bold" fill="#111111">1. ДАННЫЕ</text>
+  <text x="30" y="126" font-size="13" fill="#111111">ImageNet, 2009 (Fei-Fei Li)</text>
+  <text x="30" y="146" font-size="13" fill="#111111">14 млн размеченных изображений</text>
+  <text x="30" y="166" font-size="13" fill="#111111">49 000 разметчиков, 3 года работы</text>
+  <text x="30" y="182" font-size="11" fill="#666666">на порядки больше любого прежнего датасета</text>
+
+  <!-- stream 2 -->
+  <rect x="16" y="212" width="300" height="112" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="30" y="238" font-size="16" font-weight="bold" fill="#111111">2. ВЫЧИСЛЕНИЯ</text>
+  <text x="30" y="262" font-size="13" fill="#111111">CUDA, 2007 — расчёты на видеокартах</text>
+  <text x="30" y="282" font-size="13" fill="#111111">GTX 580 ≈ 1 TFLOPS</text>
+  <text x="30" y="302" font-size="13" fill="#111111">две карты в обычном ПК</text>
+  <text x="30" y="318" font-size="11" fill="#666666">хватило на 60 млн параметров за неделю</text>
+
+  <!-- stream 3 -->
+  <rect x="16" y="348" width="300" height="112" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="30" y="374" font-size="16" font-weight="bold" fill="#111111">3. АЛГОРИТМЫ</text>
+  <text x="30" y="398" font-size="13" fill="#111111">Обратное распространение ошибки</text>
+  <text x="30" y="418" font-size="13" fill="#111111">известно с 1986 года</text>
+  <text x="30" y="438" font-size="13" fill="#111111">26 лет ждало данных и железа</text>
+  <text x="30" y="454" font-size="11" fill="#666666">впервые успешно применено к глубокой сети</text>
+
+  <!-- arrows -->
+  <path d="M 320 132 C 400 132 400 250 452 262" fill="none" stroke="#111111" stroke-width="2.5" marker-end="url(#a2)"/>
+  <path d="M 320 268 L 452 268" fill="none" stroke="#111111" stroke-width="2.5" marker-end="url(#a2)"/>
+  <path d="M 320 404 C 400 404 400 286 452 276" fill="none" stroke="#111111" stroke-width="2.5" marker-end="url(#a2)"/>
+
+  <!-- AlexNet box -->
+  <rect x="464" y="192" width="250" height="156" fill="#111111"/>
+  <text x="589" y="228" font-size="26" font-weight="bold" fill="#ffffff" text-anchor="middle">AlexNet</text>
+  <text x="589" y="254" font-size="15" fill="#ffffff" text-anchor="middle">30 сентября 2012</text>
+  <text x="589" y="282" font-size="13" fill="#ffffff" text-anchor="middle">Крижевский, Суцкевер, Хинтон</text>
+  <text x="589" y="306" font-size="13" fill="#ffffff" text-anchor="middle">8 слоёв · 60 млн параметров</text>
+  <text x="589" y="328" font-size="13" fill="#ffffff" text-anchor="middle">5–6 дней обучения на 2 GPU</text>
+
+  <path d="M 718 270 L 774 270" fill="none" stroke="#111111" stroke-width="3" marker-end="url(#a2)"/>
+
+  <!-- result -->
+  <rect x="786" y="140" width="198" height="260" fill="#ffffff" stroke="#111111" stroke-width="2.5"/>
+  <text x="885" y="170" font-size="14" font-weight="bold" fill="#111111" text-anchor="middle">ImageNet, top-5 error</text>
+
+  <text x="806" y="212" font-size="13" fill="#333333">Ручные признаки, 2011</text>
+  <rect x="806" y="220" width="158" height="26" fill="#ffffff" stroke="#111111"/>
+  <rect x="806" y="220" width="158" height="26" fill="#cccccc" stroke="#111111"/>
+  <text x="885" y="239" font-size="15" font-weight="bold" fill="#111111" text-anchor="middle">26.2 %</text>
+
+  <text x="806" y="282" font-size="13" fill="#333333">AlexNet, 2012</text>
+  <rect x="806" y="290" width="92" height="26" fill="#111111" stroke="#111111"/>
+  <rect x="898" y="290" width="66" height="26" fill="#ffffff" stroke="#111111"/>
+  <text x="852" y="309" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">15.3 %</text>
+
+  <text x="806" y="352" font-size="13" fill="#333333">ResNet-152, 2015</text>
+  <rect x="806" y="360" width="22" height="26" fill="#111111" stroke="#111111"/>
+  <rect x="828" y="360" width="136" height="26" fill="#ffffff" stroke="#111111"/>
+  <text x="896" y="379" font-size="15" font-weight="bold" fill="#111111" text-anchor="middle">3.57 %</text>
+  <text x="806" y="396" font-size="11" fill="#666666">человек ≈ 5.1 %</text>
+
+  <!-- bottom note -->
+  <rect x="16" y="480" width="968" height="64" fill="#f2f2f2" stroke="#111111" stroke-width="1.5"/>
+  <text x="28" y="504" font-size="14" font-weight="bold" fill="#111111">Что здесь на самом деле изменилось:</text>
+  <text x="28" y="524" font-size="12.5" fill="#111111">До 2012 признаки для распознавания писал человек правилами. После 2012 их находит статистика по данным.</text>
+<text x="28" y="540" font-size="12.5" fill="#111111">Форма 1 («из картинки — текст») впервые заработала вне игрушечного домена.</text>
+</svg>

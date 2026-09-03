@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="1000" height="560" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111111"/></marker></defs>
+<rect x="0" y="0" width="1000" height="560" fill="#ffffff"/>
+<text x="16" y="26" font-size="19" font-weight="bold" fill="#111111">Трансформер, 2017: почему параллельно быстрее, чем последовательно</text>
+<rect x="16" y="48" width="326" height="470" fill="#fafafa" stroke="#111111" stroke-width="2"/>
+<text x="30" y="76" font-size="16" font-weight="bold" fill="#111111">БЫЛО: RNN / LSTM</text>
+<text x="30" y="96" font-size="12" fill="#555555">слово за словом, шаг за шагом</text>
+<rect x="34" y="120" width="44" height="40" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+<text x="56" y="145" font-size="13" fill="#111111" text-anchor="middle">t1</text>
+<line x1="78" y1="140" x2="90" y2="140" stroke="#111111" stroke-width="2" marker-end="url(#a3)"/>
+<rect x="92" y="120" width="44" height="40" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+<text x="114" y="145" font-size="13" fill="#111111" text-anchor="middle">t2</text>
+<line x1="136" y1="140" x2="148" y2="140" stroke="#111111" stroke-width="2" marker-end="url(#a3)"/>
+<rect x="150" y="120" width="44" height="40" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+<text x="172" y="145" font-size="13" fill="#111111" text-anchor="middle">t3</text>
+<line x1="194" y1="140" x2="206" y2="140" stroke="#111111" stroke-width="2" marker-end="url(#a3)"/>
+<rect x="208" y="120" width="44" height="40" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+<text x="230" y="145" font-size="13" fill="#111111" text-anchor="middle">t4</text>
+<line x1="252" y1="140" x2="264" y2="140" stroke="#111111" stroke-width="2" marker-end="url(#a3)"/>
+<rect x="266" y="120" width="44" height="40" fill="#ffffff" stroke="#111111" stroke-width="1.8"/>
+<text x="288" y="145" font-size="13" fill="#111111" text-anchor="middle">t5</text>
+<text x="30" y="184" font-size="12" fill="#111111">шаг t не начнётся, пока не посчитан t−1</text>
+<text x="30" y="202" font-size="12" fill="#111111">→ распараллелить нельзя, обучение неделями</text>
+<line x1="30" y1="220" x2="328" y2="220" stroke="#bbbbbb" stroke-width="1"/>
+<text x="30" y="248" font-size="14" font-weight="bold" fill="#111111">Три проблемы:</text>
+<text x="30" y="272" font-size="13" font-weight="bold" fill="#111111">• Затухание сигнала ошибки</text>
+<text x="42" y="290" font-size="12" fill="#444444">на 100+ токенах градиент исчезает,</text>
+<text x="42" y="306" font-size="12" fill="#444444">сеть «забывает» начало текста</text>
+<text x="30" y="334" font-size="13" font-weight="bold" fill="#111111">• Потеря контекста</text>
+<text x="42" y="352" font-size="12" fill="#444444">весь смысл предложения сжат</text>
+<text x="42" y="368" font-size="12" fill="#444444">в один вектор фиксированной длины</text>
+<text x="30" y="396" font-size="13" font-weight="bold" fill="#111111">• Последовательность</text>
+<text x="42" y="414" font-size="12" fill="#444444">обработка каждого слова зависит</text>
+<text x="42" y="430" font-size="12" fill="#444444">от предыдущего — нет параллелизма</text>
+<rect x="30" y="462" width="298" height="42" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="42" y="480" font-size="12" fill="#111111">Ровно те же болезни, что были в зрении</text>
+<text x="42" y="496" font-size="12" fill="#111111">до AlexNet и ResNet. Решение перетекло.</text>
+<rect x="356" y="48" width="628" height="470" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+<text x="372" y="76" font-size="16" font-weight="bold" fill="#111111">СТАЛО: трансформер — все токены одновременно</text>
+<text x="372" y="104" font-size="12" fill="#555555">1. Токены</text>
+<rect x="372" y="112" width="92" height="30" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="418" y="132" font-size="12" fill="#111111" text-anchor="middle">каким</text>
+<rect x="472" y="112" width="92" height="30" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="518" y="132" font-size="12" fill="#111111" text-anchor="middle">вагонам</text>
+<rect x="572" y="112" width="92" height="30" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="618" y="132" font-size="12" fill="#111111" text-anchor="middle">в</text>
+<rect x="672" y="112" width="92" height="30" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="718" y="132" font-size="12" fill="#111111" text-anchor="middle">Инской</text>
+<rect x="772" y="112" width="92" height="30" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="818" y="132" font-size="12" fill="#111111" text-anchor="middle">нужен</text>
+<rect x="872" y="112" width="92" height="30" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="918" y="132" font-size="12" fill="#111111" text-anchor="middle">ремонт</text>
+<line x1="418" y1="142" x2="418" y2="164" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="518" y1="142" x2="518" y2="164" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="618" y1="142" x2="618" y2="164" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="718" y1="142" x2="718" y2="164" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="818" y1="142" x2="818" y2="164" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="918" y1="142" x2="918" y2="164" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<text x="372" y="182" font-size="12" fill="#555555">2. Эмбеддинги — числовые векторы</text>
+<rect x="372" y="190" width="92" height="26" fill="#e8e8e8" stroke="#111111" stroke-width="1.5"/>
+<text x="418" y="208" font-size="12" fill="#111111" text-anchor="middle">v1</text>
+<rect x="472" y="190" width="92" height="26" fill="#e8e8e8" stroke="#111111" stroke-width="1.5"/>
+<text x="518" y="208" font-size="12" fill="#111111" text-anchor="middle">v2</text>
+<rect x="572" y="190" width="92" height="26" fill="#e8e8e8" stroke="#111111" stroke-width="1.5"/>
+<text x="618" y="208" font-size="12" fill="#111111" text-anchor="middle">v3</text>
+<rect x="672" y="190" width="92" height="26" fill="#e8e8e8" stroke="#111111" stroke-width="1.5"/>
+<text x="718" y="208" font-size="12" fill="#111111" text-anchor="middle">v4</text>
+<rect x="772" y="190" width="92" height="26" fill="#e8e8e8" stroke="#111111" stroke-width="1.5"/>
+<text x="818" y="208" font-size="12" fill="#111111" text-anchor="middle">v5</text>
+<rect x="872" y="190" width="92" height="26" fill="#e8e8e8" stroke="#111111" stroke-width="1.5"/>
+<text x="918" y="208" font-size="12" fill="#111111" text-anchor="middle">v6</text>
+<text x="372" y="240" font-size="12" fill="#555555">3. Self-attention: каждый токен смотрит на все остальные</text>
+<line x1="418" y1="216" x2="418" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="418" y1="216" x2="518" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="418" y1="216" x2="618" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="418" y1="216" x2="718" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="418" y1="216" x2="818" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="418" y1="216" x2="918" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="518" y1="216" x2="418" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="518" y1="216" x2="518" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="518" y1="216" x2="618" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="518" y1="216" x2="718" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="518" y1="216" x2="818" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="518" y1="216" x2="918" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="618" y1="216" x2="418" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="618" y1="216" x2="518" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="618" y1="216" x2="618" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="618" y1="216" x2="718" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="618" y1="216" x2="818" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="618" y1="216" x2="918" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="718" y1="216" x2="418" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="718" y1="216" x2="518" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="718" y1="216" x2="618" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="718" y1="216" x2="718" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="718" y1="216" x2="818" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="718" y1="216" x2="918" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="818" y1="216" x2="418" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="818" y1="216" x2="518" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="818" y1="216" x2="618" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="818" y1="216" x2="718" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="818" y1="216" x2="818" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="818" y1="216" x2="918" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="918" y1="216" x2="418" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="918" y1="216" x2="518" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="918" y1="216" x2="618" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="918" y1="216" x2="718" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="918" y1="216" x2="818" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="918" y1="216" x2="918" y2="300" stroke="#999999" stroke-width="0.8" opacity="0.85"/>
+<line x1="718" y1="216" x2="418" y2="300" stroke="#111111" stroke-width="2"/>
+<line x1="718" y1="216" x2="518" y2="300" stroke="#111111" stroke-width="2"/>
+<line x1="718" y1="216" x2="618" y2="300" stroke="#111111" stroke-width="2"/>
+<line x1="718" y1="216" x2="718" y2="300" stroke="#111111" stroke-width="2"/>
+<line x1="718" y1="216" x2="818" y2="300" stroke="#111111" stroke-width="2"/>
+<line x1="718" y1="216" x2="918" y2="300" stroke="#111111" stroke-width="2"/>
+<rect x="372" y="300" width="92" height="26" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="418" y="318" font-size="12" fill="#111111" text-anchor="middle">z1</text>
+<rect x="472" y="300" width="92" height="26" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="518" y="318" font-size="12" fill="#111111" text-anchor="middle">z2</text>
+<rect x="572" y="300" width="92" height="26" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="618" y="318" font-size="12" fill="#111111" text-anchor="middle">z3</text>
+<rect x="672" y="300" width="92" height="26" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="718" y="318" font-size="12" fill="#111111" text-anchor="middle">z4</text>
+<rect x="772" y="300" width="92" height="26" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="818" y="318" font-size="12" fill="#111111" text-anchor="middle">z5</text>
+<rect x="872" y="300" width="92" height="26" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+<text x="918" y="318" font-size="12" fill="#111111" text-anchor="middle">z6</text>
+<text x="372" y="348" font-size="12" fill="#111111">Жирным показаны связи одного токена «Инской» — так делает каждый из N токенов.</text>
+<line x1="418" y1="326" x2="418" y2="360" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="518" y1="326" x2="518" y2="360" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="618" y1="326" x2="618" y2="360" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="718" y1="326" x2="718" y2="360" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="818" y1="326" x2="818" y2="360" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<line x1="918" y1="326" x2="918" y2="360" stroke="#111111" stroke-width="1.5" marker-end="url(#a3)"/>
+<rect x="372" y="360" width="592" height="34" fill="#111111"/>
+<text x="668" y="383" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">4. Выход: следующий токен</text>
+<rect x="372" y="410" width="290" height="94" fill="#f2f2f2" stroke="#111111" stroke-width="1.5"/>
+<text x="384" y="432" font-size="14" font-weight="bold" fill="#111111">Что получили</text>
+<text x="384" y="452" font-size="12" fill="#111111">• все слова считаются параллельно</text>
+<text x="384" y="470" font-size="12" fill="#111111">• прямая связь первого слова с последним</text>
+<text x="384" y="488" font-size="12" fill="#111111">• предсказуемое масштабирование</text>
+<rect x="674" y="410" width="294" height="94" fill="#111111"/>
+<text x="686" y="432" font-size="14" font-weight="bold" fill="#ffffff">Чем платим</text>
+<text x="686" y="454" font-size="13" fill="#ffffff">матрица внимания N × N →</text>
+<text x="686" y="476" font-size="18" font-weight="bold" fill="#ffffff">O(N²) по памяти и времени</text>
+<text x="686" y="495" font-size="11" fill="#dddddd">1 млн токенов — терабайты при наивной реализации</text>
+</svg>

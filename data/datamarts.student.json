@@ -1,0 +1,817 @@
+{
+  "datamarts": [
+    {
+      "name": "load",
+      "title": "Погрузка",
+      "description": "Фактические объёмы погрузки по датам, станциям и дорогам погрузки и назначения, роду подвижного состава, типу парка, держателю контракта, клиентам, группам и классам груза. Одна строка — один погруженный вагон, объём считается суммой показателя loaded_wagons.",
+      "base_query": "SELECT * FROM V_DM_LOAD",
+      "default_limit": 100,
+      "max_limit": 5000,
+      "columns": [
+        {
+          "name": "repdate",
+          "expression": "base.REPDATE",
+          "role": "dimension",
+          "description": "Отчетная дата и время операции",
+          "data_type": "datetime"
+        },
+        {
+          "name": "rep_month",
+          "expression": "trunc(base.REPDATE, 'mm')",
+          "role": "dimension",
+          "description": "Отчетный месяц (первое число месяца)",
+          "data_type": "date"
+        },
+        {
+          "name": "st_code",
+          "expression": "base.ST_CODE",
+          "role": "dimension",
+          "description": "Код станции",
+          "name_column": "st_name"
+        },
+        {
+          "name": "st_name",
+          "expression": "base.ST_NAME",
+          "role": "dimension",
+          "description": "Наим станции",
+          "ci_match": true
+        },
+        {
+          "name": "rw_code",
+          "expression": "base.RW_CODE",
+          "role": "dimension",
+          "description": "Код дороги"
+        },
+        {
+          "name": "rw_name",
+          "expression": "base.RW_NAME",
+          "role": "dimension",
+          "description": "Наим дороги",
+          "ci_match": true,
+          "normalize": "railway"
+        },
+        {
+          "name": "rsv_st_code",
+          "expression": "base.RSV_ST_CODE",
+          "role": "dimension",
+          "description": "Код станции назначения",
+          "name_column": "rsv_st_name"
+        },
+        {
+          "name": "rsv_st_name",
+          "expression": "base.RSV_ST_NAME",
+          "role": "dimension",
+          "description": "Наим станции назначения",
+          "ci_match": true
+        },
+        {
+          "name": "rsv_rw_code",
+          "expression": "base.RSV_RW_CODE",
+          "role": "dimension",
+          "description": "Код дороги назначения"
+        },
+        {
+          "name": "rsv_rw_name",
+          "expression": "base.RSV_RW_NAME",
+          "role": "dimension",
+          "description": "Наим дороги назначения",
+          "ci_match": true,
+          "normalize": "railway"
+        },
+        {
+          "name": "rod_id",
+          "expression": "base.ROD_ID",
+          "role": "dimension",
+          "description": "Ид рода подвижного состава"
+        },
+        {
+          "name": "rod_name",
+          "expression": "base.ROD_NAME",
+          "role": "dimension",
+          "description": "Наим рода подвижного состава"
+        },
+        {
+          "name": "c_owner_id",
+          "expression": "base.C_OWNER_ID",
+          "role": "dimension",
+          "description": "Код типа парка (собственника вагонов)"
+        },
+        {
+          "name": "c_hodor_id",
+          "expression": "base.C_HODOR_ID",
+          "role": "dimension",
+          "description": "Код держателя контракта"
+        },
+        {
+          "name": "client_id",
+          "expression": "base.CLIENT_ID",
+          "role": "dimension",
+          "description": "Ид клиента"
+        },
+        {
+          "name": "client_name",
+          "expression": "base.CLIENT_NAME",
+          "role": "dimension",
+          "description": "Наим клиента",
+          "ci_match": true,
+          "normalize": "client"
+        },
+        {
+          "name": "gg_name",
+          "expression": "base.GG_NAME",
+          "role": "dimension",
+          "description": "Группа груза"
+        },
+        {
+          "name": "fr_class",
+          "expression": "base.FR_CLASS",
+          "role": "dimension",
+          "description": "Класс груза"
+        },
+        {
+          "name": "loaded_wagons",
+          "expression": "base.LOADED_WAGONS",
+          "role": "metric",
+          "description": "Погружено вагонов",
+          "data_type": "number",
+          "aggregations": [
+            "sum",
+            "avg_day"
+          ]
+        },
+        {
+          "name": "wagnum",
+          "expression": "base.WAGNUM",
+          "role": "dimension",
+          "description": "Номер вагона",
+          "data_type": "number"
+        }
+      ]
+    },
+    {
+      "name": "unload",
+      "title": "Выгрузка",
+      "description": "Фактические объёмы выгрузки по датам, станциям и дорогам выгрузки и отправления, роду подвижного состава, типу парка, держателю контракта, клиентам и группам груза. Строка сводная: показатель unloaded_wagons содержит количество вагонов за дату по данному сочетанию условий.",
+      "base_query": "SELECT * FROM V_DM_UNLOAD",
+      "default_limit": 100,
+      "max_limit": 5000,
+      "columns": [
+        {
+          "name": "repdate",
+          "expression": "base.REPDATE",
+          "role": "dimension",
+          "description": "Отчетная дата и время операции",
+          "data_type": "datetime"
+        },
+        {
+          "name": "rep_month",
+          "expression": "trunc(base.REPDATE, 'mm')",
+          "role": "dimension",
+          "description": "Отчетный месяц (первое число месяца)",
+          "data_type": "date"
+        },
+        {
+          "name": "st_code",
+          "expression": "base.ST_CODE",
+          "role": "dimension",
+          "description": "Код станции",
+          "name_column": "st_name"
+        },
+        {
+          "name": "st_name",
+          "expression": "base.ST_NAME",
+          "role": "dimension",
+          "description": "Наим станции",
+          "ci_match": true
+        },
+        {
+          "name": "rw_code",
+          "expression": "base.RW_CODE",
+          "role": "dimension",
+          "description": "Код дороги"
+        },
+        {
+          "name": "rw_name",
+          "expression": "base.RW_NAME",
+          "role": "dimension",
+          "description": "Наим дороги",
+          "ci_match": true,
+          "normalize": "railway"
+        },
+        {
+          "name": "snd_st_code",
+          "expression": "base.SND_ST_CODE",
+          "role": "dimension",
+          "description": "Код станции отправления",
+          "name_column": "snd_st_name"
+        },
+        {
+          "name": "snd_st_name",
+          "expression": "base.SND_ST_NAME",
+          "role": "dimension",
+          "description": "Наим станции отправления",
+          "ci_match": true
+        },
+        {
+          "name": "snd_rw_code",
+          "expression": "base.SND_RW_CODE",
+          "role": "dimension",
+          "description": "Код дороги отправления"
+        },
+        {
+          "name": "snd_rw_name",
+          "expression": "base.SND_RW_NAME",
+          "role": "dimension",
+          "description": "Наим дороги отправления",
+          "ci_match": true,
+          "normalize": "railway"
+        },
+        {
+          "name": "rod_id",
+          "expression": "base.ROD_ID",
+          "role": "dimension",
+          "description": "Ид рода подвижного состава"
+        },
+        {
+          "name": "rod_name",
+          "expression": "base.ROD_NAME",
+          "role": "dimension",
+          "description": "Наим рода подвижного состава"
+        },
+        {
+          "name": "c_owner_id",
+          "expression": "base.C_OWNER_ID",
+          "role": "dimension",
+          "description": "Код типа парка (собственника вагонов)"
+        },
+        {
+          "name": "c_hodor_id",
+          "expression": "base.C_HODOR_ID",
+          "role": "dimension",
+          "description": "Код держателя контракта"
+        },
+        {
+          "name": "client_id",
+          "expression": "base.CLIENT_ID",
+          "role": "dimension",
+          "description": "Ид клиента"
+        },
+        {
+          "name": "client_name",
+          "expression": "base.CLIENT_NAME",
+          "role": "dimension",
+          "description": "Наим клиента",
+          "ci_match": true,
+          "normalize": "client"
+        },
+        {
+          "name": "gg_name",
+          "expression": "base.GG_NAME",
+          "role": "dimension",
+          "description": "Группа груза"
+        },
+        {
+          "name": "unloaded_wagons",
+          "expression": "base.UNLOADED_WAGONS",
+          "role": "metric",
+          "description": "Выгружено вагонов",
+          "data_type": "number",
+          "aggregations": [
+            "sum",
+            "avg",
+            "avg_day"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "month_plan",
+      "title": "План",
+      "description": "Месячный план перевозок по станциям и дорогам погрузки и выгрузки, клиентам, типу парка, роду подвижного состава и группам груза. Гранулярность — месяц; выдавать план за сутки нельзя.",
+      "base_query": "SELECT * FROM V_DM_MPP",
+      "default_limit": 100,
+      "max_limit": 5000,
+      "columns": [
+        {
+          "name": "rep_month",
+          "expression": "base.REP_MONTH",
+          "role": "dimension",
+          "description": "Отчетный месяц (первое число месяца)",
+          "data_type": "date"
+        },
+        {
+          "name": "load_st_code",
+          "expression": "base.LOAD_ST_CODE",
+          "role": "dimension",
+          "description": "Код станции погрузки",
+          "name_column": "load_st_name"
+        },
+        {
+          "name": "load_st_name",
+          "expression": "base.LOAD_ST_NAME",
+          "role": "dimension",
+          "description": "Наим станции погрузки",
+          "ci_match": true
+        },
+        {
+          "name": "load_rw_code",
+          "expression": "base.LOAD_RW_CODE",
+          "role": "dimension",
+          "description": "Код дороги погрузки"
+        },
+        {
+          "name": "load_rw_name",
+          "expression": "base.LOAD_RW_NAME",
+          "role": "dimension",
+          "description": "Наим дороги погрузки",
+          "ci_match": true,
+          "normalize": "railway"
+        },
+        {
+          "name": "unload_st_code",
+          "expression": "base.UNLOAD_ST_CODE",
+          "role": "dimension",
+          "description": "Код станции выгрузки",
+          "name_column": "unload_st_name"
+        },
+        {
+          "name": "unload_st_name",
+          "expression": "base.UNLOAD_ST_NAME",
+          "role": "dimension",
+          "description": "Наим станции выгрузки",
+          "ci_match": true
+        },
+        {
+          "name": "unload_rw_code",
+          "expression": "base.UNLOAD_RW_CODE",
+          "role": "dimension",
+          "description": "Код дороги выгрузки"
+        },
+        {
+          "name": "unload_rw_name",
+          "expression": "base.UNLOAD_RW_NAME",
+          "role": "dimension",
+          "description": "Наим дороги выгрузки",
+          "ci_match": true,
+          "normalize": "railway"
+        },
+        {
+          "name": "client_name",
+          "expression": "base.CLIENT_NAME",
+          "role": "dimension",
+          "description": "Наим клиента",
+          "ci_match": true,
+          "normalize": "client"
+        },
+        {
+          "name": "rod_id",
+          "expression": "base.ROD_ID",
+          "role": "dimension",
+          "description": "Ид рода подвижного состава"
+        },
+        {
+          "name": "rod_name",
+          "expression": "base.ROD_NAME",
+          "role": "dimension",
+          "description": "Наим рода подвижного состава"
+        },
+        {
+          "name": "gg_name",
+          "expression": "base.GG_NAME",
+          "role": "dimension",
+          "description": "Группа груза"
+        },
+        {
+          "name": "c_owner_id",
+          "expression": "base.C_OWNER_ID",
+          "role": "dimension",
+          "description": "Код типа парка (собственника вагонов)"
+        },
+        {
+          "name": "planned_wagons",
+          "expression": "base.PLANNED_WAGONS",
+          "role": "metric",
+          "description": "План вагонов",
+          "data_type": "number",
+          "aggregations": [
+            "sum",
+            "avg"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gu12",
+      "title": "Заявки ГУ-12",
+      "description": "Количество вагонов в заявках ГУ-12 по датам, станциям и дорогам, грузоотправителям, типу парка, роду подвижного состава и группам груза. Это суточный снимок запаса: сумма нескольких дневных снимков завышает уровень, для диапазона дат используется среднесуточная агрегация.",
+      "base_query": "SELECT * FROM V_DM_GU12",
+      "default_limit": 100,
+      "max_limit": 5000,
+      "columns": [
+        {
+          "name": "repdate",
+          "expression": "base.REPDATE",
+          "role": "dimension",
+          "description": "Отчетная дата и время операции",
+          "data_type": "datetime"
+        },
+        {
+          "name": "rep_month",
+          "expression": "trunc(base.REPDATE, 'mm')",
+          "role": "dimension",
+          "description": "Отчетный месяц (первое число месяца)",
+          "data_type": "date"
+        },
+        {
+          "name": "st_code",
+          "expression": "base.ST_CODE",
+          "role": "dimension",
+          "description": "Код станции",
+          "name_column": "st_name"
+        },
+        {
+          "name": "st_name",
+          "expression": "base.ST_NAME",
+          "role": "dimension",
+          "description": "Наим станции",
+          "ci_match": true
+        },
+        {
+          "name": "rw_code",
+          "expression": "base.RW_CODE",
+          "role": "dimension",
+          "description": "Код дороги"
+        },
+        {
+          "name": "rw_name",
+          "expression": "base.RW_NAME",
+          "role": "dimension",
+          "description": "Наим дороги",
+          "ci_match": true,
+          "normalize": "railway"
+        },
+        {
+          "name": "rsv_st_code",
+          "expression": "base.RSV_ST_CODE",
+          "role": "dimension",
+          "description": "Код станции назначения",
+          "name_column": "rsv_st_name"
+        },
+        {
+          "name": "rsv_st_name",
+          "expression": "base.RSV_ST_NAME",
+          "role": "dimension",
+          "description": "Наим станции назначения",
+          "ci_match": true
+        },
+        {
+          "name": "rsv_rw_code",
+          "expression": "base.RSV_RW_CODE",
+          "role": "dimension",
+          "description": "Код дороги назначения"
+        },
+        {
+          "name": "rsv_rw_name",
+          "expression": "base.RSV_RW_NAME",
+          "role": "dimension",
+          "description": "Наим дороги назначения",
+          "ci_match": true,
+          "normalize": "railway"
+        },
+        {
+          "name": "snd_org_id",
+          "expression": "base.SND_ORG_ID",
+          "role": "dimension",
+          "description": "Ид грузоотправителя"
+        },
+        {
+          "name": "snd_org_name",
+          "expression": "base.SND_ORG_NAME",
+          "role": "dimension",
+          "description": "Наим грузоотправителя",
+          "ci_match": true,
+          "normalize": "client"
+        },
+        {
+          "name": "rod_id",
+          "expression": "base.ROD_ID",
+          "role": "dimension",
+          "description": "Ид рода подвижного состава"
+        },
+        {
+          "name": "rod_name",
+          "expression": "base.ROD_NAME",
+          "role": "dimension",
+          "description": "Наим рода подвижного состава"
+        },
+        {
+          "name": "gg_name",
+          "expression": "base.GG_NAME",
+          "role": "dimension",
+          "description": "Группа груза"
+        },
+        {
+          "name": "c_owner_id",
+          "expression": "base.C_OWNER_ID",
+          "role": "dimension",
+          "description": "Код типа парка (собственника вагонов)"
+        },
+        {
+          "name": "gu12_wag_cnt",
+          "expression": "base.GU12_WAG_CNT",
+          "role": "metric",
+          "description": "Количество вагонов по заявкам ГУ-12",
+          "data_type": "number",
+          "aggregations": [
+            "sum",
+            "avg_day"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "unload_forecast",
+      "title": "Прогноз выгрузки",
+      "description": "Прогноз количества вагонов к выгрузке по станциям и дорогам отправления и назначения, роду подвижного состава, типу парка, держателю контракта и группам груза. Отбирать обязательно по дате расчёта (calc_date, 06:00 или 18:00); по умолчанию — последняя дата расчёта. Дата расчёта и прогнозная дата выгрузки (repdate) — разные понятия.",
+      "base_query": "SELECT * FROM V_DM_UNLOAD_FORECAST",
+      "default_limit": 100,
+      "max_limit": 5000,
+      "columns": [
+        {
+          "name": "calc_date",
+          "expression": "base.CALC_DATE",
+          "role": "dimension",
+          "description": "Дата расчета прогноза. Расчёт два раза в сутки: 06:00 и 18:00",
+          "data_type": "datetime"
+        },
+        {
+          "name": "repdate",
+          "expression": "base.REPDATE",
+          "role": "dimension",
+          "description": "Отчетная дата",
+          "data_type": "date"
+        },
+        {
+          "name": "rep_month",
+          "expression": "trunc(base.REPDATE, 'mm')",
+          "role": "dimension",
+          "description": "Отчетный месяц (первое число месяца)",
+          "data_type": "date"
+        },
+        {
+          "name": "snd_st_code",
+          "expression": "base.SND_ST_CODE",
+          "role": "dimension",
+          "description": "Код станции отправления",
+          "name_column": "snd_st_name"
+        },
+        {
+          "name": "snd_st_name",
+          "expression": "base.SND_ST_NAME",
+          "role": "dimension",
+          "description": "Наим станции отправления",
+          "ci_match": true
+        },
+        {
+          "name": "snd_rw_code",
+          "expression": "base.SND_RW_CODE",
+          "role": "dimension",
+          "description": "Код дороги отправления"
+        },
+        {
+          "name": "snd_rw_name",
+          "expression": "base.SND_RW_NAME",
+          "role": "dimension",
+          "description": "Наим дороги отправления",
+          "ci_match": true,
+          "normalize": "railway"
+        },
+        {
+          "name": "rsv_st_code",
+          "expression": "base.RSV_ST_CODE",
+          "role": "dimension",
+          "description": "Код станции назначения",
+          "name_column": "rsv_st_name"
+        },
+        {
+          "name": "rsv_st_name",
+          "expression": "base.RSV_ST_NAME",
+          "role": "dimension",
+          "description": "Наим станции назначения",
+          "ci_match": true
+        },
+        {
+          "name": "rsv_rw_code",
+          "expression": "base.RSV_RW_CODE",
+          "role": "dimension",
+          "description": "Код дороги назначения"
+        },
+        {
+          "name": "rsv_rw_name",
+          "expression": "base.RSV_RW_NAME",
+          "role": "dimension",
+          "description": "Наим дороги назначения",
+          "ci_match": true,
+          "normalize": "railway"
+        },
+        {
+          "name": "rod_id",
+          "expression": "base.ROD_ID",
+          "role": "dimension",
+          "description": "Ид рода подвижного состава"
+        },
+        {
+          "name": "rod_name",
+          "expression": "base.ROD_NAME",
+          "role": "dimension",
+          "description": "Наим рода подвижного состава"
+        },
+        {
+          "name": "gg_name",
+          "expression": "base.GG_NAME",
+          "role": "dimension",
+          "description": "Группа груза"
+        },
+        {
+          "name": "c_owner_id",
+          "expression": "base.C_OWNER_ID",
+          "role": "dimension",
+          "description": "Код типа парка (собственника вагонов)"
+        },
+        {
+          "name": "c_hodor_id",
+          "expression": "base.C_HODOR_ID",
+          "role": "dimension",
+          "description": "Код держателя контракта"
+        },
+        {
+          "name": "wag_cnt",
+          "expression": "base.WAG_CNT",
+          "role": "metric",
+          "description": "Прогноз выгрузки, вагонов",
+          "data_type": "number",
+          "aggregations": [
+            "sum",
+            "avg",
+            "avg_day"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "disloc",
+      "title": "Дислокация вагонов",
+      "description": "Текущий срез местоположения и состояния отдельных вагонов. Содержит гружёные вагоны в пути (с грузом и станцией назначения) и порожние, часть которых в отстое или нерабочем парке. Используется в двух сценариях: 1) точечный отбор по конкретным номерам вагонов через фильтр carnum, не более 20 номеров; 2) агрегированный подсчёт количества вагонов через carnum_count по разрешённым фильтрам и срезам. Историю по прошлым датам восстанавливать по этому источнику нельзя.",
+      "base_query": "SELECT * FROM V_DM_DISLOC",
+      "default_limit": 20,
+      "max_limit": 5000,
+      "columns": [
+        {
+          "name": "carnum",
+          "expression": "base.CARNUM",
+          "role": "dimension",
+          "description": "Номер вагона",
+          "max_filter_values_raw": 20,
+          "data_type": "number"
+        },
+        {
+          "name": "rps",
+          "expression": "base.RPS",
+          "role": "dimension",
+          "description": "Род подвижного состава"
+        },
+        {
+          "name": "c_owner_id",
+          "expression": "base.C_OWNER_ID",
+          "role": "dimension",
+          "description": "Код типа парка (собственника вагонов)"
+        },
+        {
+          "name": "loaded",
+          "expression": "base.LOADED",
+          "role": "dimension",
+          "description": "Признак груженности: Порожний или Груженый",
+          "allowed_values": [
+            "Порожний",
+            "Груженый"
+          ],
+          "data_type": "string"
+        },
+        {
+          "name": "gg_name",
+          "expression": "base.GG_NAME",
+          "role": "dimension",
+          "description": "Группа груза"
+        },
+        {
+          "name": "st_disl_code",
+          "expression": "base.ST_DISL_CODE",
+          "role": "dimension",
+          "description": "Код станции дислокации",
+          "name_column": "st_disl_name"
+        },
+        {
+          "name": "st_disl_name",
+          "expression": "base.ST_DISL_NAME",
+          "role": "dimension",
+          "description": "Станция дислокации",
+          "ci_match": true
+        },
+        {
+          "name": "road_disl",
+          "expression": "base.ROAD_DISL",
+          "role": "dimension",
+          "description": "Дорога дислокации",
+          "normalize": "railway"
+        },
+        {
+          "name": "operdate",
+          "expression": "base.OPERDATE",
+          "role": "dimension",
+          "description": "Дата и время последней операции",
+          "data_type": "date"
+        },
+        {
+          "name": "oper_name",
+          "expression": "base.OPER_NAME",
+          "role": "dimension",
+          "description": "Наименование последней операции",
+          "ci_match": true
+        },
+        {
+          "name": "st_dest_code",
+          "expression": "base.ST_DEST_CODE",
+          "role": "dimension",
+          "description": "Код станции назначения",
+          "name_column": "st_dest_name"
+        },
+        {
+          "name": "st_dest_name",
+          "expression": "base.ST_DEST_NAME",
+          "role": "dimension",
+          "description": "Станция назначения",
+          "ci_match": true
+        },
+        {
+          "name": "road_dest",
+          "expression": "base.ROAD_DEST",
+          "role": "dimension",
+          "description": "Дорога назначения",
+          "normalize": "railway"
+        },
+        {
+          "name": "longime_reserve",
+          "expression": "base.LONGIME_RESERVE",
+          "role": "dimension",
+          "description": "Признак отстоя"
+        },
+        {
+          "name": "park_sign",
+          "expression": "base.PARK_SIGN",
+          "role": "dimension",
+          "description": "Признак парка: Рабочий, Нерабочий, Непригодный"
+        },
+        {
+          "name": "kod_pl_rem",
+          "expression": "base.KOD_PL_REM",
+          "role": "dimension",
+          "description": "Вид очередного планового ремонта"
+        },
+        {
+          "name": "date_pl_rem",
+          "expression": "base.DATE_PL_REM",
+          "role": "dimension",
+          "description": "Дата очередного планового ремонта",
+          "data_type": "date"
+        },
+        {
+          "name": "carnum_count",
+          "expression": "count(base.CARNUM)",
+          "role": "metric",
+          "description": "Количество вагонов",
+          "data_type": "number",
+          "aggregations": [
+            "count"
+          ]
+        }
+      ],
+      "default_select": [
+        "carnum",
+        "rps",
+        "c_owner_id",
+        "loaded",
+        "gg_name",
+        "st_disl_name",
+        "road_disl",
+        "oper_name",
+        "operdate",
+        "st_dest_name",
+        "road_dest",
+        "longime_reserve",
+        "park_sign",
+        "kod_pl_rem",
+        "date_pl_rem"
+      ]
+    }
+  ]
+}
